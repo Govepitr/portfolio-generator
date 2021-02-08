@@ -7,17 +7,38 @@ const promptUser = () => {
     {
       type: 'input',
       name: 'name',
-      message: 'What is your name?'
+      message: 'What is your name?',
+      validate: nameInput => {
+        if (nameInput) {
+          return true;
+        }else{
+          console.log("GIMME A NAAAAAAME!");
+        }
+      }
     },
     {
       type: 'input',
-      name: 'github',
-      message: 'Enter your GitHub Username'
+      name: 'GitHub username',
+      message: 'Enter your GitHub Username',
+      validate: userNameInput => {
+        if (userNameInput) {
+          return true;
+        }else{
+          console.log("Dude, just give me your username for GitHub..");
+        }
+      }
     },
     {
       type: 'input',
       name: 'about',
-      message: 'Provide some information about yourself:'
+      message: 'Provide some information about yourself:',
+      validate: bioInput => {
+        if (bioInput) {
+          return true;
+        }else{
+          console.log("I'd like to get to know those are about to be in my thrall.");
+        }
+      }
     }
   ]);
 };
@@ -37,13 +58,27 @@ Add a New Project
   .prompt([
     {
       type: 'input',
-      name: 'name',
-      message: 'What is the name of your project?'
+      name: 'Project name',
+      message: 'What is the name of your project?',
+      validate: projectName => {
+        if (projectName) {
+          return true;
+        }else{
+          console.log("STAAAAHP! Share it's name with me.");
+        }
+      }
     },
     {
       type: 'input',
-      name: 'description',
-      message: 'Provide a description of the project (Required)'
+      name: 'Project description',
+      message: 'Provide a description of the project (Required)',
+      validate: projectBio => {
+        if (projectBio) {
+          return true;
+        }else {
+          console.log("Don't be bashful, introduce the little binary lady.");
+        }
+      }
     },
     {
       type: 'checkbox',
@@ -53,8 +88,15 @@ Add a New Project
     },
     {
       type: 'input',
-      name: 'link',
-      message: 'Enter the GitHub link to your project. (Required)'
+      name: 'Project GitHub link',
+      message: 'Enter the GitHub link to your project. (Required)',
+      validate: githubLink => {
+        if (githubLink) {
+          return true;
+        }else {
+          console.log("I'm not asking for your PIN. Just the URL dude.");
+        }
+      }
     },
     {
       type: 'confirm',
