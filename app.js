@@ -1,6 +1,6 @@
 const inquirer = require('inquirer');
-// const fs = require('fs');
-// const generatePage = require('./src/page-template');
+const fs = require('fs');
+const generatePage = require('./src/page-template');
 
 const promptUser = () => {
   return inquirer.prompt([
@@ -18,10 +18,10 @@ const promptUser = () => {
     },
     {
       type: 'input',
-      name: 'GitHub username',
+      name: 'github',
       message: 'Enter your GitHub Username',
-      validate: userNameInput => {
-        if (userNameInput) {
+      validate: githubInput => {
+        if (githubInput) {
           return true;
         }else{
           console.log("Dude, just give me your username for GitHub..");
@@ -66,8 +66,8 @@ Add a New Project
       type: 'input',
       name: 'Project name',
       message: 'What is the name of your project?',
-      validate: projectName => {
-        if (projectName) {
+      validate: nameInput => {
+        if (nameInput) {
           return true;
         }else{
           console.log("STAAAAHP! Share it's name with me.");
@@ -76,10 +76,10 @@ Add a New Project
     },
     {
       type: 'input',
-      name: 'Project description',
+      name: 'description',
       message: 'Provide a description of the project (Required)',
-      validate: projectBio => {
-        if (projectBio) {
+      validate: descriptionInput => {
+        if (descriptionInput) {
           return true;
         }else {
           console.log("Don't be bashful, introduce the little binary lady.");
@@ -93,11 +93,11 @@ Add a New Project
       choices: ['JavaScript', 'HTML', 'CSS', 'ES6', 'jQuery', 'Bootstrap', 'Node']
     },
     {
-      type: 'input',
+      type: 'link',
       name: 'Project GitHub link',
       message: 'Enter the GitHub link to your project. (Required)',
-      validate: githubLink => {
-        if (githubLink) {
+      validate: linkInput => {
+        if (linkInput) {
           return true;
         }else {
           console.log("I'm not asking for your PIN. Just the URL dude.");
@@ -130,5 +130,11 @@ Add a New Project
 promptUser()
   .then(promptProject)
   .then(portfolioData => {
-    console.log(portfolioData);
+    const pageHTML = generatePage(portfolioData);
+
+    fs.writeFile('./index.html', pageHTML, err => {
+      if (err) throw new Error(err);
+
+      console.log('Page created! Check out index.html in this directory to see it!');
+    });
   });
